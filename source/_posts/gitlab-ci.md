@@ -1,7 +1,7 @@
 ---
 title: gitlab-ci前端自动发布(简单版)
 date: 2020-09-16 0:51:05
-tags:
+tags: 前端自动发布
 ---
 我司所用的自动部署技术栈是gitlab-ci + docker + rancher + harbor, 遂产生了自己手搭一个简单的前端自动部署的念头.
 *虚拟机直接使用root用户了, 懒得换*
