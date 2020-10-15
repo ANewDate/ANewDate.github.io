@@ -102,10 +102,18 @@ tags: react
   ### 5. 初识: redux
   先上一张百度百科的图
   ![redux](/img/react/redux.jpg)
-  redux的使用理解:
-  1. 创建store, 关联reducer
-  2. store.state 与 React Component连接(通过Connect API向Component.prop注入)
-  3. React Component 通过 store.dispatch(action) 调用 reducer 改变 store.state
+  与vuex的对比:
+  1. 同为状态管理器, `vuex`为vue量身定做; `redux`就是一个纯JS库, 可以用在其他框架(我自己是没去试过怎么用的)
+  2. vuex的同步可以使用`commit(mutation)`, 也可以用`dispatch(action)`; react同步异步都是用dispatch触发, 同步异步传参不同(这针对现在学的`thunk`)
+  3. 刷新都会丢失,需要做数据持久化(似乎两个的思想都是来自与`flux`)
+  4. 解决业务场景问题: 组件之间状态共享 
+    
+  
+  redux的使用步骤:
+
+  1. 创建`store`, 关联`reducer`
+  2. `store.state` 与 `React Component`连接(通过`Connect` API向`Component.prop`注入)
+  3. `React Component` 通过 `store.dispatch(action)` 调用 `reducer` 改变 `store.state`
   ```js
   // 创建store
   import { createStore } from 'redux'
@@ -113,10 +121,112 @@ tags: react
   const store = createStore(root)
   export default store
 
-  // store 与 React Component 关联，根组件注入
+  // reducer
+  function setToken(state = '', action) {
+    switch (action.type) {
+      case actionType.SET_TOKEN:
+        return action.payload
+      default: {
+        return state
+      }
+    }
+  }
+  export default combineReducers({tenant: setToken})
+
+  // store 与 React Component 关联，根组件注入(略)
+  // action及创建函数
+  export const SET_TOKEN = "SET_TOKEN"
+  export function setToken(value = '') {
+    return {
+      type: actionType.SET_TOKEN,
+      payload: value,
+    }
+  }
+  // store与UI关联
+  function Login({handleSetToken}){
+    // 调用handleSetToken即可更新state
+  }
+  const mapStateToProps = () => ({})
+  const mapDispatchToProps = (dispatch) => ({
+    handleSetToken: (value) => dispatch(setToken(value)),
+  })
+  export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
   ```
-## 生命周期
-  ![生命周期](/img/react/circle.png)
-## END
-  对于react有初步的了解, 对于react的开发, 正式环境区分, 生命周期, 高阶组件及mobX状态等了解甚少
+  **现阶段存在的一些问题:** 
+    -  刷新页面, store的数据会丢失; 
+    -  现在store.dispatch({type})是同步的, 如果异步, 该如何处理. 
+
+  由此, 引入react的一些中间件
+  ### redux-thunk: 异步action处理
+  **`redux-thunk`帮我们做了什么**
+  在没有引入`redux-thunk`之前, `store.dispatch()`的参数只能是一个Object, 引入这个库之后, `store.dispatch()`的参数可以是**Object || Function**
+  为什么在此阶段处理异步操作:
+  * 根据`redux`的设计原则, reducer应该为纯函数, 不涉及动态数据
+  * UI 中触发更改state操作是通过 `store.dispatch()` 更改  
+   
+
+  ```js
+  createStore(reducer, applyMiddleware(thunk))    // 好奇applyMiddleware是如何实现中间件功能的, 现在暂且先会用吧
+
+  // action创建函数
+  export function getTodoList() {
+    return (dispatch) => {
+      dispatch({ type: actionType.FETCH_TODO_LIST })
+      return axios.get('/todo').then((res) => {
+        dispatch({
+          type: actionType.TODO_LIST_RECEIVE,
+          todoList: res.data.records,
+        })
+      }).catch(err => {
+        dispatch({
+          type: actionType.TODO_LIST_RECEIVE
+        })
+      })
+    }
+  }
+  // 其他使用和同步无异
+  ```
+  ### redux-persist: redux数据持久化
+  [redux-persist文档](https://github.com/rt2zz/redux-persist)
+  `redux-persist`帮我们做的事: 把state存储到浏览器storage
+  ```js
+  // persist.js store的创建有所改变
+  import { createStore, applyMiddleware } from 'redux'
+  import { persistStore, persistReducer } from 'redux-persist'
+  import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+
+  import rootReducer from './reducer'
+  import thunk from 'redux-thunk'
+  const persistConfig = {
+    key: 'root',
+    storage,
+  }
+  const persistedReducer = persistReducer(persistConfig, rootReducer)
+  let store = createStore(persistedReducer, applyMiddleware(thunk))
+  let persistor = persistStore(store)
+  export {
+    store,
+    persistor
+  }
+
+  // 根组件配置
+  import { Provider } from 'react-redux'
+  import {persistor, store }  from "./store/persist.js"
+  import { PersistGate } from 'redux-persist/es/integration/react';
+
+  ReactDOM.render(
+    <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+    </Provider>,
+    document.getElementById('root')
+  )
+  ```
+## 写在最后
+  对于react有初步的了解, 但对于react的开发, 正式环境区分, 生命周期, 高阶组件及mobX状态等了解甚少
+  后续一个方向, 了解react中间件的设计, `applyMiddleware`的实现, 实现一个不对数据做任何处理的中间件 
+  有这种念头是因为, `react-redux`保证纯洁性的后果是, 所有脏苦累的活都交给中间件去做了
+  
+  最后 希望后面自己能对工作中的技术有一个阶段性的总结, 关于工作用到的技术, 关于个人的提升, 关于线下读的书...
   
