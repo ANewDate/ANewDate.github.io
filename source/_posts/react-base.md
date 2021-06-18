@@ -2,6 +2,8 @@
 title: react入坑指南
 date: 2020-10-10 19:19:44
 tags: react
+categories: 
+- web前端
 ---
 ## 为什么入坑
   无他, 给自己充充电 (*之前有人问会不会`react + electron`, 汗颜: 不会*)

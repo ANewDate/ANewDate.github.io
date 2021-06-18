@@ -1,7 +1,9 @@
 ---
 title: elementui-cascader-lazyload
 date: 2020-09-14 15:39:16
-tags: elementUI
+tags: elementUI vue
+categories: 
+- web前端
 ---
 el-cascader动态加载数据, 父子节点不关联单选的情况下, 直接点击radio图标不自动加载下一级的解决办法
 
