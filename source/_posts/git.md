@@ -63,6 +63,8 @@ git rebase -i (start_commit_id end_commit_id], start end的区间是**前开后�
 曾遇到场景: 丢弃CRM分页条件查询限制
 ![](/img/git/revert.gif)
 
+最后, 可以通过第三方包规范git提交格式, 比如`cz-conventional-changelog`
+
 
 
 
