@@ -105,3 +105,4 @@ theme: fluid
 deploy:
   type: git
   repo: git@github.com:ANewDate/ANewDate.github.io.git
+  branch: gh-pages
