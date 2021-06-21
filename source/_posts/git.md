@@ -2,6 +2,8 @@
 title: git进阶
 date: 2021-06-18 09:21:06
 updated: 2021-06-18 14:55:06
+excerpt: git cherry-pick, git revert, git 头指针分离, git rebase交互式变基...
+index_img: /img/git/base.gif
 tags: git
 categories: 
 - 工具
