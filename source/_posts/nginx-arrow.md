@@ -48,6 +48,7 @@ http{
 ```
 
 ## 2. location.proxy_set_header
+**这种事肯定是后端做的啦, 这样的架构本身就有问题**
 ```nginx
 http {
   server {
