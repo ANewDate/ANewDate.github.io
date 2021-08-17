@@ -1,0 +1,611 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/1.jpg">
+  <link rel="icon" type="image/png" href="/img/bg/1.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="HYC">
+  <meta name="keywords" content="">
+  <title>读书笔记-JS函数式编程 - ANewDate&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ANewDate</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/bg/1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-11 09:45" pubdate>
+        2020年12月11日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">读书笔记-JS函数式编程</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>近状, 工作几月, 经验几天。 重复处理我司旧项目CRM业务需求, 也曾考虑重构, 奈何条件不允许。遂读书, 寻求突破。感觉通篇在流水, 但希望通过这种方式能让自己对某些思想理解更加深刻.</p>
+<pre><code class="hljs md">函数式编程的哲学就是假定副作用是造成不正当行为的主要原因。
+只要是跟函数外部环境发生的交互就都是副作用。
+我们不能消除副作用, 但是我们可以控制副作用, 通过函数式编程</code></pre>
+<h2 id="1-函数真的没什么特殊"><a href="#1-函数真的没什么特殊" class="headerlink" title="1. 函数真的没什么特殊"></a>1. 函数真的没什么特殊</h2><pre><code class="hljs md">函数真没什么特殊的，你可以像对待任何其他数据类型一样对待它们——把它们存在数组里，当作参数传递，赋值给变量...等等</code></pre>
+<p>这个没什么好说的, 高阶函数, 贴合平时使用的回调函数, 给函数传递函数参数, 函数返回函数等场景<br>但是, <strong>传递函数的同时, 应当注重函数的 “打开方式”</strong></p>
+<pre><code class="hljs js"><span class="hljs-comment">// 看起来酷炫, 实则无用</span>
+<span class="hljs-keyword">var</span> getServerStuff = <span class="hljs-function"><span class="hljs-params">cb</span> =&gt;</span> ajaxCall(<span class="hljs-function"><span class="hljs-params">json</span> =&gt;</span> cb(json));
+
+<span class="hljs-keyword">var</span> getServerStuff = ajaxCall</code></pre>
+<h2 id="2-纯函数-减少函数副作用"><a href="#2-纯函数-减少函数副作用" class="headerlink" title="2. 纯函数:减少函数副作用"></a>2. 纯函数:减少函数副作用</h2><pre><code class="hljs md">纯函数是这样一种函数，即相同的输入，永远会得到相同的输出，而且<span class="hljs-emphasis">*没有任何可观察的副作用*</span>。</code></pre>
+<p><strong>简单理解, 不被外界影响, 输入与输出之间唯一映射</strong><br>下面两段代码的区别在于: 比较的minimum值是否可被系统改变。</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 不纯的函数</span>
+<span class="hljs-keyword">var</span> minimum = <span class="hljs-number">21</span>;
+<span class="hljs-keyword">var</span> checkAge = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">age</span>) </span>&#123;<span class="hljs-keyword">return</span> age &gt;= minimum;&#125;;</code></pre>
+<pre><code class="hljs js"><span class="hljs-comment">// 纯函数</span>
+<span class="hljs-keyword">var</span> checkAge = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">age</span>) </span>&#123;<span class="hljs-keyword">var</span> minimum = <span class="hljs-number">21</span>;<span class="hljs-keyword">return</span> age &gt;= minimum;&#125;;</code></pre>
+<p><strong>编写纯函数应该明确依赖, 即从形参便可看出此函数的依赖</strong>, 即传入的外部状态应当在形参中定义</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 不纯的</span>
+<span class="hljs-keyword">var</span> signUp = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">attrs</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> user = saveUser(attrs);  welcomeUser(user);
+&#125;;
+<span class="hljs-keyword">var</span> saveUser = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">attrs</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> user = Db.save(attrs);    
+&#125;;
+<span class="hljs-keyword">var</span> welcomeUser = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>&#123;    
+  Email(user, ...);    
+&#125;;
+<span class="hljs-comment">// 纯的</span>
+<span class="hljs-keyword">var</span> signUp = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">Db, Email, attrs</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-keyword">var</span> user = saveUser(Db, attrs);    
+    welcomeUser(Email, user);  
+  &#125;;
+&#125;;
+<span class="hljs-keyword">var</span> saveUser = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">Db, attrs</span>) </span>&#123; ...&#125;;
+<span class="hljs-keyword">var</span> welcomeUser = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">Email, user</span>) </span>&#123;    ...&#125;;</code></pre>
+
+<h2 id="3-curry-and-compose"><a href="#3-curry-and-compose" class="headerlink" title="3. curry and compose"></a>3. curry and compose</h2><h3 id="3-1-curry"><a href="#3-1-curry" class="headerlink" title="3.1 curry"></a>3.1 curry</h3><pre><code class="hljs md">只传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数。</code></pre>
+<p>这里推荐一个大神的博客, 便于理解<a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/42">函数柯里化</a>, 函数柯里化, 用习惯了就很依赖, 但是我司项目没有身影<br><em>这里把要操作的数据放到最后一个参数</em>, 利于<code>compose</code></p>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> curry = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lodash&#x27;</span>).curry
+<span class="hljs-keyword">var</span> match = curry(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">what, str</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> str.match(what)
+&#125;)
+<span class="hljs-keyword">var</span> replace = curry(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">what, replacement, str</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> str.replace(what, replacement)
+&#125;)
+<span class="hljs-keyword">var</span> findSpace = match(<span class="hljs-regexp">/\s+/g</span>) <span class="hljs-comment">// 通过传入不同的正则得到不同的匹配函数</span>
+<span class="hljs-keyword">var</span> map = curry(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">f, ary</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> ary.map(f)
+&#125;)</code></pre>
+
+<h3 id="3-2-compose"><a href="#3-2-compose" class="headerlink" title="3.2 compose"></a>3.2 compose</h3><pre><code class="hljs js"><span class="hljs-comment">// 代码从右往左进行</span>
+<span class="hljs-keyword">var</span> compose = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">f, g</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>&#123;
+    <span class="hljs-keyword">return</span> f(g(x))
+  &#125;
+&#125;</code></pre>
+<p><strong>pointfree模式: 不必告诉我你是谁(数据)</strong></p>
+<pre><code class="hljs md">pointfree: 函数无须提及将要操作的数据是什么样的</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> toUpperCase = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>&#123; <span class="hljs-keyword">return</span> x.toUpperCase(); &#125;;
+<span class="hljs-comment">// 非 pointfree，因为提到了数据：word</span>
+<span class="hljs-keyword">var</span> snakeCase = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">word</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> word.toLowerCase().replace(<span class="hljs-regexp">/\s+/ig</span>, <span class="hljs-string">&#x27;_&#x27;</span>);
+&#125;;
+<span class="hljs-comment">// pointfree</span>
+<span class="hljs-keyword">var</span> snakeCase = compose(replace(<span class="hljs-regexp">/\s+/ig</span>, <span class="hljs-string">&#x27;_&#x27;</span>), toLowerCase);</code></pre>
+<p>习惯了命令式函数, 再看这种声明式函数的写法这个反差还是比较大的，但是总的来着，这种函数写法更加优雅，易读性更高，当然这是建立在函数命名简单易懂的前提下(当然，有函数签名更好)</p>
+<p><strong>compose函数的debug方法: trace函数</strong><br><font size=2>通过<code>trace</code>函数可以知道数据在传输过程中的值</font></p>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> trace = curry(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tag, x</span>)</span>&#123;<span class="hljs-built_in">console</span>.log(tag, x);<span class="hljs-keyword">return</span> x;&#125;);
+<span class="hljs-comment">// after split [ &#x27;The&#x27;, &#x27;world&#x27;, &#x27;is&#x27;, &#x27;a&#x27;, &#x27;vampire&#x27; ]</span>
+<span class="hljs-keyword">var</span> dasherize = compose(join(<span class="hljs-string">&#x27;-&#x27;</span>),map(toLower),trace(<span class="hljs-string">&quot;after split&quot;</span>),split(<span class="hljs-string">&#x27; &#x27;</span>),replace(<span class="hljs-regexp">/\s&#123;2,&#125;/ig</span>, <span class="hljs-string">&#x27; &#x27;</span>));</code></pre>
+
+<h3 id="3-3-线上例子"><a href="#3-3-线上例子" class="headerlink" title="3.3 线上例子"></a>3.3 线上例子</h3><p><a target="_blank" rel="noopener" href="https://codesandbox.io/s/js-hanshushibiancheng-3qb2z?file=/src/index.js">获取🐱的图片显示在网页上</a><br><strong>compose+ curry</strong>的组合感觉是是函数式编程的精粹吧, 可以习惯使用这种写法</p>
+<h2 id="4-Hindley-Milner类型签名"><a href="#4-Hindley-Milner类型签名" class="headerlink" title="4. Hindley-Milner类型签名"></a>4. Hindley-Milner类型签名</h2><pre><code class="hljs md">简单易读的函数注释, 暴露函数的行为与目的</code></pre>
+<pre><code class="hljs js"><span class="hljs-comment">// sayHi :: String -&gt; String 这个String可以随便命名表示某种类型的值</span>
+<span class="hljs-keyword">var</span> sayHi = <span class="hljs-function">(<span class="hljs-params">str</span>) =&gt;</span> &#123;alert(str)&#125;;
+<span class="hljs-comment">// id :: a -&gt; a</span>
+<span class="hljs-keyword">var</span> id = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) </span>&#123;<span class="hljs-keyword">return</span> x&#125;;</code></pre>
+<pre><code class="hljs js"><span class="hljs-comment">// map :: (a -&gt; b) -&gt; [a] -&gt; b</span>
+<span class="hljs-keyword">var</span> map = curry(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">f, xs</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> xs.map(f)
+&#125;)
+
+<span class="hljs-comment">// reduce :: (b -&gt; a -&gt; b) -&gt; b -&gt; [a] -&gt; b</span>
+<span class="hljs-keyword">var</span> reduce = curry(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">f, x, xs</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> xs.reduce(f, x)
+&#125;)</code></pre>
+<pre><code class="hljs md"><span class="hljs-strong">**map函数类型解读:**</span>
+<span class="hljs-bullet">  -</span> map函数的第一个参数f是一个函数, 接收类型a的参数(此数据来源于map函数的第二个参数a数组)，返回类型b
+<span class="hljs-bullet">  -</span> map函数的第二个参数是一个a类型数组, 此参数会传递给函数f作为参数
+<span class="hljs-bullet">  -</span> map函数返回的是 b 类型的数据
+
+<span class="hljs-strong">**reduce函数类型解读:**</span>
+<span class="hljs-bullet">  -</span> 第一个参数是一个函数, 此函数接收两个参数, b,a, 这两个参数来源于reduce函数的第二及第三个参数
+<span class="hljs-bullet">  -</span> 返回b</code></pre>
+
+<h2 id="5-END"><a href="#5-END" class="headerlink" title="5. END"></a>5. END</h2><p>此书后面还提到了functor之类的概念, 个人觉得现阶段难以施展.<br>一些收获: 个人觉得 Hindley-Milner类型签名真的是此书给我最大的收获, 当然函数柯里化也是JS中的黑魔法<br><strong>读过的书也许会忘掉, 但是收获的却是思想</strong>, 努力吧, 打工人</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/book/">book</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "读书笔记-JS函数式编程&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script>
+      !function (e, t, a) {
+        function r() {
+          for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");
+          requestAnimationFrame(r)
+        }
+
+        function n() {
+          var t = "function" == typeof e.onclick && e.onclick;
+          e.onclick = function (e) {
+            t && t(), o(e)
+          }
+        }
+
+        function o(e) {
+          var a = t.createElement("div");
+          a.className = "heart", s.push({
+            el: a,
+            x: e.clientX - 5,
+            y: e.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: c()
+          }), t.body.appendChild(a)
+        }
+
+        function i(e) {
+          var a = t.createElement("style");
+          a.type = "text/css";
+          try {
+            a.appendChild(t.createTextNode(e))
+          } catch (t) {
+            a.styleSheet.cssText = e
+          }
+          t.getElementsByTagName("head")[0].appendChild(a)
+        }
+
+        function c() {
+          return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        }
+
+        var s = [];
+        e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {
+          setTimeout(e, 1e3 / 60)
+        }, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()
+      }(window, document);
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
